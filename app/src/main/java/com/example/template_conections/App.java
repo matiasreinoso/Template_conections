@@ -21,7 +21,6 @@ public class App extends Application {
         if (mDataHandler == null) {
             mDataHandler = new DataHandler(getApplicationContext(), mConnection);
         }
-        VisitaModel.setContext(getApplicationContext());
 
         isForeground = false;
         isSynchronized = false;

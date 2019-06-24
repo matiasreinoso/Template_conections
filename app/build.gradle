@@ -1,14 +1,17 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28
+
+    compileSdkVersion 26
+    useLibrary 'org.apache.http.legacy'
+
     defaultConfig {
         applicationId "com.example.template_conections"
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -19,19 +22,20 @@ android {
 }
 
 dependencies {
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile files('libs/Common-3.3.1.jar')
-    compile files('libs/Connectivity-3.3.1.jar')
-    compile files('libs/core-2.2.jar')
-    compile files('libs/CoreServices-3.3.1.jar')
-    compile files('libs/gson-2.2.4.jar')
-    compile files('libs/Parser-3.3.1.jar')
-    compile files('libs/perflib-1.1.5.jar')
-    compile files('libs/Request-3.3.1.jar')
-    compile files('libs/sap-e2etrace-2.3.3.13.jar')
-    compile files('libs/UltraLiteJNI12.jar')
-    compile files('libs/ClientLib.jar')
+    implementation files('libs/Common-3.3.1.jar')
+    implementation files('libs/Connectivity-3.3.1.jar')
+    implementation files('libs/core-2.2.jar')
+    implementation files('libs/CoreServices-3.3.1.jar')
+    implementation files('libs/gson-2.2.4.jar')
+    implementation files('libs/Parser-3.3.1.jar')
+    implementation files('libs/perflib-1.1.5.jar')
+    implementation files('libs/Request-3.3.1.jar')
+    implementation files('libs/sap-e2etrace-2.3.3.13.jar')
+    implementation files('libs/UltraLiteJNI12.jar')
+    implementation files('libs/ClientLib.jar')
 
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
