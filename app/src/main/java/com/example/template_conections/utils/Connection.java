@@ -307,16 +307,9 @@ public class Connection implements INetListener {
         }
 
 
-        //Response para login
-        if (aRequest.getRequestTAG().contentEquals(Constants.LOGIN)) {
-            Message.obtain(mHandler, Constants.ERROR_LOGIN, 0, 0).sendToTarget();
-        }
-
-        //Response para sincronización
         if (aRequest.getRequestTAG().contentEquals(Constants.READ_DATA)) {
             Message.obtain(mHandler, Constants.ERROR_READ_DATA, 0, 0).sendToTarget();
         }
-
 
     }
 
@@ -356,60 +349,54 @@ public class Connection implements INetListener {
             }
 
             //Response para login
-            if (aRequest.getRequestTAG().contentEquals(Constants.LOGIN)) {
+            if (aRequest.getRequestTAG().contentEquals(Constants.READ_DATA)) {
                 IODataSchema schema = getODataSchema();
                 entries = parser.parseODataEntries(responseString, Constants.OT_DATA, schema);
                 for (IODataEntry entry : entries) {
                     List<IODataProperty> propertiesData = entry.getPropertiesData();
                     String response = propertiesData.get(0).getValue(); // Valida que el logeo sea correcto en desde el campo TIPO
-                    if (response.equals(Constants.LOGIN_CORRECTO)) {
-                        Message.obtain(mHandler, Constants.OK_LOGIN, 0, 0).sendToTarget();
-                    } else {
-                        Message.obtain(mHandler, Constants.ERROR_LOGIN, 0, 0).sendToTarget();
-                    }
+                    Message.obtain(mHandler, Constants.OK_LOGIN, 0, 0).sendToTarget();
+
                 }
             }
 
 
 //            //Response para sincronización
-            if (aRequest.getRequestTAG().contentEquals(Constants.READ_DATA)) {
-//               IODataSchema schema = getODataSchema();
-                entries = parser.parseODataEntries(responseString, Constants.OT_DATA, schema);
-                for (IODataEntry entry : entries) {
-
-                    List<IODataProperty> propertiesData = entry.getPropertiesData();
-                    String response = propertiesData.get(0).getValue();
-
-                    if (response.equals((Constants.VISITA))) {
-
-                        ((App) mContext).getDataHandler().updateVisita(propertiesData);
-                    }
-                    if (response.equals((Constants.ULTIMAS_VISITAS))) {
-                        ((App) mContext).getDataHandler().updateUltimasVisita(propertiesData);
-                    }
-                    if (response.equals((Constants.ULTIMAS_ACTAS))) {
-                        ((App) mContext).getDataHandler().updateUltimasActas(propertiesData);
-                    }
-                    if (response.equals((Constants.CHECKLIST))) {
-                        ((App) mContext).getDataHandler().updateChecklist(propertiesData);
-                    }
-                    if (response.equals((Constants.DATA_ADMIN))) {
-                        ((App) mContext).getDataHandler().updateDataAdmin(propertiesData);
-                    }
-                    if (response.equals((Constants.OFICIO))) {
-                        ((App) mContext).getDataHandler().updateOficio(propertiesData);
-                    }
-                    if (response.equals((Constants.SUACI))) {
-                        ((App) mContext).getDataHandler().updateSuaci(propertiesData);
-                    }
-                    if (response.equals((Constants.ACTA_ADMIN))) {
-                        ((App) mContext).getDataHandler().updateActaAdmin(propertiesData);
-                    }
-                }
-
-
-                Message.obtain(mHandler, Constants.OK_READ_DATA, 0, 0).sendToTarget();
-            }
+//            if (aRequest.getRequestTAG().contentEquals(Constants.READ_DATA)) {
+////               IODataSchema schema = getODataSchema();
+//                entries = parser.parseODataEntries(responseString, Constants.OT_DATA, schema);
+//                for (IODataEntry entry : entries) {
+//
+//                    List<IODataProperty> propertiesData = entry.getPropertiesData();
+//                    String response = propertiesData.get(0).getValue();
+//
+//                    if (response.equals((Constants.VISITA))) {
+//
+//                        ((App) mContext).getDataHandler().updateVisita(propertiesData);
+//                    }
+//                    if (response.equals((Constants.ULTIMAS_VISITAS))) {
+//                        ((App) mContext).getDataHandler().updateUltimasVisita(propertiesData);
+//                    }
+//                    if (response.equals((Constants.ULTIMAS_ACTAS))) {
+//                        ((App) mContext).getDataHandler().updateUltimasActas(propertiesData);
+//                    }
+//                    if (response.equals((Constants.CHECKLIST))) {
+//                        ((App) mContext).getDataHandler().updateChecklist(propertiesData);
+//                    }
+//                    if (response.equals((Constants.DATA_ADMIN))) {
+//                        ((App) mContext).getDataHandler().updateDataAdmin(propertiesData);
+//                    }
+//                    if (response.equals((Constants.OFICIO))) {
+//                        ((App) mContext).getDataHandler().updateOficio(propertiesData);
+//                    }
+//                    if (response.equals((Constants.SUACI))) {
+//                        ((App) mContext).getDataHandler().updateSuaci(propertiesData);
+//                    }
+//                    if (response.equals((Constants.ACTA_ADMIN))) {
+//                        ((App) mContext).getDataHandler().updateActaAdmin(propertiesData);
+//                    }
+//                }
+//            }
 
         } catch (ParseException e) {
             //AppLogger.log("Error parseando response de request", e.getMessage());
